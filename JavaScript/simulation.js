@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // =====================================================================
     // 2. NÉPSŰRŰSÉGI ADATOK BETÖLTÉSE (Isobands & Irányítószámok)
     // =====================================================================
-    fetch('data/heatmap_data.json')
+    fetch('Data/heatmap_data.json')
         .then(response => response.json())
         .then(data => {
             // Eltesszük az adatokat az interaktív szimulátornak
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 style: function (feature) {
                     return {
                         fillColor: getColor(feature.properties.density),
-                        weight: 1, opacity: 0.8, color: 'white', fillOpacity: 0.6 
+                        weight: 1, opacity: 0.8, color: 'white', fillOpacity: 0.2 
                     };
                 }
             }).addTo(isobandLayerGroup);

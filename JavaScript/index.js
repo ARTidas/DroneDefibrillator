@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // 2. NÉPSŰRŰSÉGI ADATOK BETÖLTÉSE (Isobands)
-    fetch('data/heatmap_data.json')
+    fetch('Data/heatmap_data.json')
         .then(response => response.json())
         .then(data => {
             const hungaryBbox = [16.0, 45.7, 23.0, 48.6]; 
