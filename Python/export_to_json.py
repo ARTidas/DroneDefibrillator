@@ -22,22 +22,18 @@ try:
     # 2. Lekérdezzük a lakossági és koordináta adatokat
     query = """
         SELECT 
-            postal_code,
-            category,
-            settlement_name,
-            county,
-            district,
-            settlement_type,
-            population,
-            settlement_total_pop,
-            latitude,
-            longitude,
-            -- updated_at,
-            -- Ez a varázslat: 5 egyenlő csoportra osztja az adatokat a lakosság alapján (növekvő sorrendben)
-            NTILE(5) OVER (ORDER BY population ASC) AS density_category_id,
+            -- A MIN/MAX azért kell, hogy szöveges adatokat is kinyerjünk (pl. település neve) a csoportosítás után
+            MAX(postal_code) AS postal_code, 
+            MAX(settlement_name) AS settlement_name,
+            MAX(county) AS county,
+            latitude, 
+            longitude, 
+            SUM(population) AS population,
             
-            -- Egy olvasható szöveges címkét is rakunk hozzá a frontend számára
-            CASE NTILE(5) OVER (ORDER BY population ASC)
+            -- Itt az NTILE() ablakfüggvényt a SUM(population) eredményére hívjuk meg!
+            NTILE(5) OVER (ORDER BY SUM(population) ASC) AS density_category_id,
+            
+            CASE NTILE(5) OVER (ORDER BY SUM(population) ASC)
                 WHEN 1 THEN '1 - Nagyon ritka'
                 WHEN 2 THEN '2 - Ritka'
                 WHEN 3 THEN '3 - Közepes'
@@ -48,12 +44,14 @@ try:
         FROM 
             `02773_research`.`geo_hungary_postal_codes_aggregated`
         WHERE 
-            population > 0 AND -- Csak a lakott helyeket vesszük figyelembe
-            latitude IS NOT NULL AND
-            longitude IS NOT NULL
+            population > 0 
+            AND latitude IS NOT NULL 
+            AND longitude IS NOT NULL
+        GROUP BY 
+            latitude, 
+            longitude
         ORDER BY 
-            population DESC
-        ;
+            population DESC;
     """
     
     cursor.execute(query)

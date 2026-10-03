@@ -29,3 +29,36 @@ WHERE
 ORDER BY 
     population DESC
 ;
+
+
+SELECT 
+    -- A MIN/MAX azért kell, hogy szöveges adatokat is kinyerjünk (pl. település neve) a csoportosítás után
+    MAX(postal_code) AS postal_code, 
+    MAX(settlement_name) AS settlement_name,
+    MAX(county) AS county,
+    latitude, 
+    longitude, 
+    SUM(population) AS population,
+    
+    -- Itt az NTILE() ablakfüggvényt a SUM(population) eredményére hívjuk meg!
+    NTILE(5) OVER (ORDER BY SUM(population) ASC) AS density_category_id,
+    
+    CASE NTILE(5) OVER (ORDER BY SUM(population) ASC)
+        WHEN 1 THEN '1 - Nagyon ritka'
+        WHEN 2 THEN '2 - Ritka'
+        WHEN 3 THEN '3 - Közepes'
+        WHEN 4 THEN '4 - Sűrű'
+        WHEN 5 THEN '5 - Nagyon sűrű'
+    END AS density_label
+    
+FROM 
+    `02773_research`.`geo_hungary_postal_codes_aggregated`
+WHERE 
+    population > 0 
+    AND latitude IS NOT NULL 
+    AND longitude IS NOT NULL
+GROUP BY 
+    latitude, 
+    longitude
+ORDER BY 
+    population DESC;
