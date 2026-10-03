@@ -38,7 +38,7 @@ print("Adatok betöltése és kereslet normalizálása...")
 # Itt betöltjük a korábban létrehozott népsűrűségi (postal codes) adatbázist.
 # (Ezt egy adatbázis lekérdezéssel, vagy a JSON fájlod beolvasásával teheted meg)
 # Példa kedvéért egy DataFrame-et feltételezünk, amiben benne van: postal_code, latitude, longitude, population
-df = pd.read_json('data/heatmap_data.json')
+df = pd.read_json('../Data/heatmap_data.json')
 
 # Kiszámoljuk Magyarország teljes lekérdezett lakosságát
 total_population = df['population'].sum()
@@ -117,5 +117,5 @@ print("\nA legforgalmasabb Top 5 drónbázis-központ:")
 print(stations_df[['center_postal_code', 'covered_daily_cases', 'needed_stations', 'assigned_drones']].head(5).to_string(index=False))
 
 # (Opcionális) Kimentheted az eredményt JSON-be a Leaflet térkép számára!
-stations_df.to_json('Data/optimized_drone_bases.json', orient='records')
+stations_df.to_json('../Data/optimized_drone_bases.json', orient='records')
 
