@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const newItem = document.createElement('li');
         const time = new Date().toLocaleTimeString();
         newItem.textContent = `[${time}] ${message}`;
-        logList.prepend(newItem);
+        //logList.prepend(newItem);
     }
 
     logEvent("Térkép inicializálva.");

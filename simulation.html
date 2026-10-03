@@ -25,7 +25,7 @@
     <!-- Az országhatár betöltése -->
     <script src="Data/geojson_data_hungary_boundary.js"></script>
     
-    <script type="text/javascript" src="JavaScript/index.js"></script>
+    <script type="text/javascript" src="JavaScript/simulation.js"></script>
 </head>
 <body>
 
@@ -33,6 +33,34 @@
     <!-- <script src="javascript/geojson_data_hungary_boundary.js"></script>
     <script src="javascript/geojson_data_hungary_states.js"></script> -->
     <div id="map"></div>
+
+    <!-- LEBEGŐ SZIMULÁCIÓS PANEL -->
+    <div id="sim_panel">
+        <h3>Drónhálózat Paraméterek</h3>
+        
+        <div class="control-group">
+            <label for="range_slider">Hatótáv: <span id="range_val">30</span> km</label>
+            <input type="range" id="range_slider" min="10" max="150" step="5" value="30">
+        </div>
+
+        <div class="control-group">
+            <label for="drone_slider">Drón / Bázis: <span id="drone_val">5</span> db</label>
+            <input type="range" id="drone_slider" min="1" max="20" step="1" value="5">
+        </div>
+
+        <div class="control-group">
+            <label for="flight_slider">Max Napi Repülés / Drón: <span id="flight_val">4</span> út</label>
+            <input type="range" id="flight_slider" min="1" max="15" step="1" value="4">
+        </div>
+
+        <button id="run_sim_btn">Szimuláció Futtatása</button>
+        
+        <div id="sim_results">
+            <p>Bázisok: <b id="res_bases">-</b> db</p>
+            <p>Flotta: <b id="res_drones">-</b> db</p>
+            <p>Lefedettség: <b id="res_coverage">-</b>%</p>
+        </div>
+    </div>
 
     <!--
     <div id="map_log">
