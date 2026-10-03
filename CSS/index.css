@@ -1,0 +1,59 @@
+/* 1. Az alapértelmezett margók eltávolítása és teljes magasság beállítása */
+body { 
+    margin: 0; 
+    padding: 0; 
+    height: 100vh; /* A képernyő magasságának 100%-a */
+    display: flex; 
+    flex-direction: column; /* Egymás alá rendezi a címeket és a térképet */
+    font-family: sans-serif; 
+}
+
+/* 2. A címsor formázása */
+h1 { 
+    margin: 15px 20px; 
+    font-size: 24px;
+    flex-shrink: 0; /* Megakadályozza, hogy a flexbox összenyomja a címet */
+}
+
+/* 3. A térkép kitölti a maradék helyet */
+#map { 
+    flex-grow: 1; /* Kitölti az összes rendelkezésre álló függőleges teret */
+    width: 100%; 
+    z-index: 1; /* A Leaflet alap z-indexe */
+}
+
+/* 4. A napló (log) lebegtetése a térkép felett */
+#map_log {
+    position: absolute;
+    bottom: 30px; /* 30 pixelre az aljától */
+    right: 30px;  /* 30 pixelre a jobb szélétől */
+    z-index: 1000; /* Nagyon fontos: nagyobbnak kell lennie, mint a Leaflet rétegeinek (400), hogy látszódjon */
+    
+    background: rgba(255, 255, 255, 0.9); /* Enyhén átlátszó fehér háttér */
+    width: 320px;
+    max-height: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Szép árnyék */
+    overflow-y: auto; /* Gördíthető, ha sok az esemény */
+}
+
+#map_log h2 { 
+    margin-top: 0; 
+    font-size: 16px; 
+    border-bottom: 2px solid #32cd32;
+    padding-bottom: 5px;
+}
+
+#log_list { 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+#log_list li { 
+    padding: 5px 0; 
+    border-bottom: 1px solid #eee; 
+    font-size: 13px; 
+    color: #333;
+}

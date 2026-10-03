@@ -1,0 +1,6 @@
+/Python/__pycache__/
+/Python/config.py
+/Data/*
+
+geojson_hungary_population_density.gpkg
+DroneDefibrillator_Hungary_population_density.qgz
